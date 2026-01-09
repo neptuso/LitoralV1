@@ -1,0 +1,196 @@
+/* ========================================
+   LAYOUT STYLES
+   ======================================== */
+
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Navbar */
+.navbar {
+    height: 64px;
+    background-color: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+}
+
+.logo-emoji {
+    font-size: 1.5rem;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-left: var(--spacing-xl);
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.nav-link.active {
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-left: auto;
+}
+
+/* Theme Selector */
+.theme-select {
+    padding: 4px 8px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+/* User Profile */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-left: var(--spacing-md);
+    border-left: 1px solid var(--color-border);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.user-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.btn-logout {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast);
+}
+
+.btn-logout:hover {
+    background-color: var(--color-error-light);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: var(--spacing-xl) 0;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    padding: var(--spacing-lg) 0;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.version-pill {
+    background-color: var(--color-bg-tertiary);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Auth links in navbar */
+.btn-register-nav {
+    background-color: var(--color-primary);
+    color: white !important;
+}
+
+.btn-register-nav:hover {
+    background-color: var(--color-primary-hover);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .navbar-menu {
+        display: none;
+        /* Mobile menu could be a hamburger later */
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        text-align: center;
+    }
+}

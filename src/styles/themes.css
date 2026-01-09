@@ -1,0 +1,335 @@
+/* ========================================
+   THEME SYSTEM - 6 Visual Themes
+   ======================================== */
+
+:root {
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Courier New', monospace;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+  
+  /* Z-index */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* ========================================
+   THEME 1: Light (Default)
+   ======================================== */
+[data-theme="light"] {
+  /* Primary colors */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #dbeafe;
+  
+  /* Background */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #f3f4f6;
+  
+  /* Text */
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+  
+  /* Border */
+  --color-border: #e5e7eb;
+  --color-border-hover: #d1d5db;
+  
+  /* Status colors */
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #3b82f6;
+  --color-info-light: #dbeafe;
+}
+
+/* ========================================
+   THEME 2: Dark
+   ======================================== */
+[data-theme="dark"] {
+  /* Primary colors */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-light: #1e3a8a;
+  
+  /* Background */
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  
+  /* Text */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #94a3b8;
+  
+  /* Border */
+  --color-border: #334155;
+  --color-border-hover: #475569;
+  
+  /* Status colors */
+  --color-success: #22c55e;
+  --color-success-light: #14532d;
+  --color-warning: #fbbf24;
+  --color-warning-light: #78350f;
+  --color-error: #f87171;
+  --color-error-light: #7f1d1d;
+  --color-info: #60a5fa;
+  --color-info-light: #1e3a8a;
+  
+  /* Shadows for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================
+   THEME 3: Citrus (Orange Brand)
+   ======================================== */
+[data-theme="citrus"] {
+  /* Primary colors - Orange theme */
+  --color-primary: #f97316;
+  --color-primary-hover: #ea580c;
+  --color-primary-light: #ffedd5;
+  
+  /* Background - Dark with orange accents */
+  --color-bg-primary: #1a1410;
+  --color-bg-secondary: #2d1f17;
+  --color-bg-tertiary: #3d2a1f;
+  
+  /* Text */
+  --color-text-primary: #fef3c7;
+  --color-text-secondary: #fde68a;
+  --color-text-tertiary: #fcd34d;
+  
+  /* Border */
+  --color-border: #78350f;
+  --color-border-hover: #92400e;
+  
+  /* Status colors */
+  --color-success: #84cc16;
+  --color-success-light: #1a2e05;
+  --color-warning: #facc15;
+  --color-warning-light: #422006;
+  --color-error: #f87171;
+  --color-error-light: #7f1d1d;
+  --color-info: #fb923c;
+  --color-info-light: #431407;
+  
+  /* Shadows with orange tint */
+  --shadow-sm: 0 1px 2px 0 rgba(249, 115, 22, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(249, 115, 22, 0.2), 0 2px 4px -1px rgba(249, 115, 22, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(249, 115, 22, 0.2), 0 4px 6px -2px rgba(249, 115, 22, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(249, 115, 22, 0.3), 0 10px 10px -5px rgba(249, 115, 22, 0.2);
+}
+
+/* ========================================
+   THEME 4: Ocean (Deep Blue)
+   ======================================== */
+[data-theme="ocean"] {
+  /* Primary colors */
+  --color-primary: #0ea5e9;
+  --color-primary-hover: #0284c7;
+  --color-primary-light: #e0f2fe;
+  
+  /* Background */
+  --color-bg-primary: #0c1e2e;
+  --color-bg-secondary: #164e63;
+  --color-bg-tertiary: #155e75;
+  
+  /* Text */
+  --color-text-primary: #f0f9ff;
+  --color-text-secondary: #bae6fd;
+  --color-text-tertiary: #7dd3fc;
+  
+  /* Border */
+  --color-border: #0e7490;
+  --color-border-hover: #0891b2;
+  
+  /* Status colors */
+  --color-success: #14b8a6;
+  --color-success-light: #042f2e;
+  --color-warning: #fbbf24;
+  --color-warning-light: #78350f;
+  --color-error: #f43f5e;
+  --color-error-light: #881337;
+  --color-info: #38bdf8;
+  --color-info-light: #082f49;
+}
+
+/* ========================================
+   THEME 5: Forest (Natural Green)
+   ======================================== */
+[data-theme="forest"] {
+  /* Primary colors */
+  --color-primary: #22c55e;
+  --color-primary-hover: #16a34a;
+  --color-primary-light: #dcfce7;
+  
+  /* Background */
+  --color-bg-primary: #0a1f0f;
+  --color-bg-secondary: #14532d;
+  --color-bg-tertiary: #166534;
+  
+  /* Text */
+  --color-text-primary: #f0fdf4;
+  --color-text-secondary: #bbf7d0;
+  --color-text-tertiary: #86efac;
+  
+  /* Border */
+  --color-border: #15803d;
+  --color-border-hover: #16a34a;
+  
+  /* Status colors */
+  --color-success: #4ade80;
+  --color-success-light: #052e16;
+  --color-warning: #facc15;
+  --color-warning-light: #422006;
+  --color-error: #f87171;
+  --color-error-light: #7f1d1d;
+  --color-info: #34d399;
+  --color-info-light: #064e3b;
+}
+
+/* ========================================
+   THEME 6: Sunset (Purple/Pink)
+   ======================================== */
+[data-theme="sunset"] {
+  /* Primary colors */
+  --color-primary: #a855f7;
+  --color-primary-hover: #9333ea;
+  --color-primary-light: #f3e8ff;
+  
+  /* Background */
+  --color-bg-primary: #1e0a2e;
+  --color-bg-secondary: #3b0764;
+  --color-bg-tertiary: #581c87;
+  
+  /* Text */
+  --color-text-primary: #faf5ff;
+  --color-text-secondary: #e9d5ff;
+  --color-text-tertiary: #d8b4fe;
+  
+  /* Border */
+  --color-border: #6b21a8;
+  --color-border-hover: #7e22ce;
+  
+  /* Status colors */
+  --color-success: #a78bfa;
+  --color-success-light: #2e1065;
+  --color-warning: #fbbf24;
+  --color-warning-light: #78350f;
+  --color-error: #f472b6;
+  --color-error-light: #831843;
+  --color-info: #c084fc;
+  --color-info-light: #4c1d95;
+}
+
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Utility classes */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
