@@ -36,7 +36,8 @@ export const apiConfig = {
 // App configuration
 export const appConfig = {
   name: 'LitoralCitrus',
-  version: '1.0.0',
+  version: '1.1.0',
+  developer: 'Ceibal Sistemas',
   defaultTheme: 'citrus',
   defaultFormLayout: 'single', // 'single' | 'wizard' | 'tabs'
   plantsCount: 4,
