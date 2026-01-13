@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ROLE_LABELS } from '../config';
 
 export default function Dashboard() {
     const { userProfile } = useAuth();
+    const navigate = useNavigate();
 
     return (
         <div className="dashboard-page">
@@ -32,16 +34,16 @@ export default function Dashboard() {
             <section className="dashboard-actions">
                 <h2>Acciones Rápidas</h2>
                 <div className="action-grid">
-                    <button className="action-card">
+                    <button className="action-card" onClick={() => navigate('/forms')}>
                         <span className="action-icon">📝</span>
                         <span className="action-title">Nueva Carga</span>
                     </button>
-                    <button className="action-card">
+                    <button className="action-card" onClick={() => navigate('/reports')}>
                         <span className="action-icon">📊</span>
                         <span className="action-title">Ver Reportes</span>
                     </button>
                     {userProfile?.role === 'admin' && (
-                        <button className="action-card">
+                        <button className="action-card" onClick={() => navigate('/admin')}>
                             <span className="action-icon">👥</span>
                             <span className="action-title">Gestionar Usuarios</span>
                         </button>

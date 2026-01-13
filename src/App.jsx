@@ -6,6 +6,8 @@ import Register from './components/auth/Register';
 import Dashboard from './pages/Dashboard';
 import UserManagement from './pages/admin/UserManagement';
 import FormsPage from './pages/forms/FormsPage';
+import ReportsPage from './pages/ReportsPage';
+import ReportDetailPage from './pages/ReportDetailPage';
 import { USER_ROLES } from './config';
 
 export default function App() {
@@ -22,6 +24,10 @@ export default function App() {
 
         {/* Data Entry Forms */}
         <Route path="/forms" element={<FormsPage />} />
+
+        {/* Reports Page & Detail */}
+        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/reports/:id" element={<ReportDetailPage />} />
 
         {/* Admin only routes */}
         <Route
