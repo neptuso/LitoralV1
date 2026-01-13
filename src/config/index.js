@@ -63,8 +63,8 @@ export const ROLE_LABELS = {
 
 // Plants configuration
 export const PLANTS = [
-  { id: 'plant1', name: 'Planta 1', location: 'Ubicación 1' },
-  { id: 'plant2', name: 'Planta 2', location: 'Ubicación 2' },
-  { id: 'plant3', name: 'Planta 3', location: 'Ubicación 3' },
-  { id: 'plant4', name: 'Planta 4', location: 'Ubicación 4' },
+  { id: 'concordia', name: 'CONCORDIA', location: 'Entre Ríos' },
+  { id: 'tucuman', name: 'TUCUMÁN', location: 'Tucumán' },
+  { id: 'bella_vista', name: 'BELLA VISTA', location: 'Corrientes' },
+  { id: 'formosa', name: 'FORMOSA', location: 'Formosa' },
 ];

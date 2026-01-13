@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { formSections } from '../../config/formFields';
+import { reportSections, OPERATIONAL_LIMITS } from '../../config/formFields';
+import { PLANTS } from '../../config';
 import { dataService } from '../../services/dataService';
 import SinglePageForm from '../../components/forms/SinglePageForm';
 import WizardForm from '../../components/forms/WizardForm';
@@ -14,10 +16,51 @@ export default function FormsPage() {
     const [loading, setLoading] = useState(false);
     const methods = useForm();
 
+    const plantId = userProfile?.plantId || 'concordia';
+    const assignedPlant = PLANTS.find(p => p.id === plantId);
+
+    // Dynamically generate fields based on the plant
+    const activeSections = reportSections ? reportSections.map(section => ({
+        ...section,
+        fields: typeof section.fields === 'function' ? section.fields(plantId) : []
+    })) : [];
+
+    // Monitor fields for real-time calculations
+    const allValues = methods.watch();
+
+    useEffect(() => {
+        if (!allValues) return;
+
+        let totalFruit = 0;
+        let totalJuice = 0;
+
+        Object.keys(allValues).forEach(key => {
+            if (key.startsWith('fruta_')) {
+                const val = Number(allValues[key]);
+                if (!isNaN(val)) totalFruit += val;
+            }
+            if (key.startsWith('jugo_')) {
+                const val = Number(allValues[key]);
+                if (!isNaN(val)) totalJuice += val;
+            }
+        });
+
+        if (totalFruit > 0 && totalJuice > 0) {
+            const yieldVal = (totalFruit / totalJuice).toFixed(2);
+            const efficiencyVal = ((totalJuice / (totalFruit * 0.13)) * 100).toFixed(1);
+
+            methods.setValue('calc_rendimiento', yieldVal, { shouldValidate: false });
+            methods.setValue('calc_eficiencia', efficiencyVal + '%', { shouldValidate: false });
+        }
+    }, [allValues, methods]);
+
+    if (!userProfile || activeSections.length === 0) {
+        return <div className="loading-container"><div className="spinner"></div><p>Cargando configuración de planta...</p></div>;
+    }
+
     const onSubmit = async (data) => {
         try {
             setLoading(true);
-            const plantId = userProfile?.plantId || 'general';
             await dataService.createEntry(currentUser.uid, plantId, data);
 
             alert('Datos guardados exitosamente en Firestore y registrados en Auditoría.');
@@ -33,7 +76,7 @@ export default function FormsPage() {
         <div className="forms-page">
             <header className="page-header">
                 <h1>Carga de Datos</h1>
-                <p>Planta: <strong>{userProfile?.plantId || 'General'}</strong></p>
+                <p>Planta: <strong>{assignedPlant?.name || 'Sin Asignar'}</strong></p>
             </header>
 
             <div className="layout-selector">
@@ -62,9 +105,9 @@ export default function FormsPage() {
 
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)} className="dynamic-form">
-                    {layout === 'single' && <SinglePageForm sections={formSections} />}
-                    {layout === 'wizard' && <WizardForm sections={formSections} />}
-                    {layout === 'tabs' && <TabbedForm sections={formSections} />}
+                    {layout === 'single' && <SinglePageForm sections={activeSections} />}
+                    {layout === 'wizard' && <WizardForm sections={activeSections} />}
+                    {layout === 'tabs' && <TabbedForm sections={activeSections} />}
 
                     {layout !== 'wizard' && (
                         <div className="form-submit-container">

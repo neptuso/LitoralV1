@@ -1,75 +1,95 @@
-export const formSections = [
+/**
+ * LitoralCitrus - Form Configuration & Operational Limits
+ * Based on data analysis of EJEMPLO DE TABLAS and METAS BaseCargaV1
+ */
+
+export const OPERATIONAL_LIMITS = {
+    YIELD: {
+        MAX_KG_FF_PER_KG_JC: 17, // Fruta Fresca por kg de Jugo Concentrado
+        MAX_KG_FF_PER_KG_CC: 30, // Fruta Fresca por kg de Concentrado
+    },
+    EFFICIENCY: {
+        JUICE_TARGET: 95, // %
+        JUICE_WARNING: 90, // %
+        OIL_TARGET: 50, // %
+    },
+    TEMPERATURES: {
+        CHAMBERS: { min: -20, max: -11 }, // °C
+        ANTE_CHAMBERS: { min: 2, max: 6 }, // Target +4°C
+    },
+    OTHER: {
+        MAX_STOCK_FRUIT: 150, // Tn
+        MAX_ABSENTEEISM: 5, // %
+    }
+};
+
+// Plant-specific species (Frutas) mapping from Spreadsheet headers
+export const PLANT_SPECIES = {
+    concordia: ['Naranja Común', 'Naranja Ombligo', 'Naranja Verano', 'Pomelo Blanco', 'Pomelo Rosado', 'Limón', 'Mandarina', 'Mandarina Raleo'],
+    tucuman: ['Naranja Común', 'Naranja Tardía', 'Naranja Valencia', 'Pomelo Blanco', 'Pomelo Rosado', 'Limón Orgánico', 'Limón', 'Mandarina'],
+    bella_vista: ['Naranja Común', 'Naranja Tardía', 'Naranja Valencia', 'Pomelo Blanco', 'Pomelo Rosado', 'Limón Orgánico', 'Limón', 'Mandarina'],
+    formosa: ['Naranja Común', 'Naranja Ombligo', 'Naranja Verano', 'Pomelo Blanco', 'Pomelo Rosado', 'Pomelo Rojo', 'Mandarina Común', 'Mandarina Variedad'],
+};
+
+// Main sections for the daily report
+export const reportSections = [
     {
         id: 'general',
         title: 'Información General',
         icon: '📋',
-        fields: [
+        fields: (plantId) => [
             { id: 'fecha', label: 'Fecha', type: 'date', required: true },
+            ...(plantId === 'tucuman' || plantId === 'bella_vista' ?
+                [{ id: 'parte_nro', label: 'Parte Nº', type: 'text', required: true }] : []),
             { id: 'turno', label: 'Turno', type: 'select', options: ['Mañana', 'Tarde', 'Noche'], required: true },
-            { id: 'responsable', label: 'Responsable de Carga', type: 'text', required: true },
+            { id: 'responsable', label: 'Responsable', type: 'text', required: true },
         ]
     },
     {
-        id: 'produccion',
-        title: 'Volúmenes de Producción',
-        icon: '🚜',
-        fields: [
-            { id: 'recepcion_ton', label: 'Recepción (Ton)', type: 'number', min: 0 },
-            { id: 'procesado_ton', label: 'Procesado (Ton)', type: 'number', min: 0 },
-            { id: 'descarte_ton', label: 'Descarte (Ton)', type: 'number', min: 0 },
-            { id: 'producto_terminado_kg', label: 'Producto Terminado (kg)', type: 'number', min: 0 },
+        id: 'fruta_ingreso',
+        title: 'Fruta Ingresada (Kg)',
+        icon: '🚚',
+        fields: (plantId) => (PLANT_SPECIES[plantId] || PLANT_SPECIES.concordia).map(species => ({
+            id: `fruta_${species.toLowerCase().replace(/ /g, '_')}`,
+            label: species,
+            type: 'number',
+            min: 0
+        }))
+    },
+    {
+        id: 'jugos_aceites',
+        title: 'Producción: Jugos y Aceites',
+        icon: '🧃',
+        fields: (plantId) => [
+            ...(PLANT_SPECIES[plantId] || PLANT_SPECIES.concordia).map(species => ({
+                id: `jugo_${species.toLowerCase().replace(/ /g, '_')}`,
+                label: `Jugo ${species}`,
+                type: 'number',
+                min: 0
+            })),
+            { id: 'aceite_esencial', label: 'Aceite Esencial (Kg)', type: 'number', min: 0 },
+            { id: 'terpenos', label: 'Terpenos (Kg)', type: 'number', min: 0 },
+            { id: 'descarte', label: 'Descarte Físico (Kg)', type: 'number', min: 0 },
         ]
     },
     {
         id: 'calidad',
-        title: 'Parámetros de Calidad',
+        title: 'Parámetros de Calidad y Ops',
         icon: '🧪',
-        fields: [
-            { id: 'brix', label: 'Brix (%)', type: 'number', step: 0.1, min: 0, max: 20 },
-            { id: 'acidez', label: 'Acidez (%)', type: 'number', step: 0.01, min: 0, max: 5 },
-            { id: 'ratio', label: 'Ratio (Brix/Ac)', type: 'number', step: 0.1 },
-            { id: 'pH', label: 'pH', type: 'number', step: 0.1, min: 0, max: 14 },
+        fields: (plantId) => [
+            { id: 'brix', label: 'Brix (50º Std)', type: 'number', step: 0.1, min: 0, max: 80 },
+            { id: 'acidez', label: 'Acidez (%)', type: 'number', step: 0.01, min: 0, max: 10 },
+            { id: 'temp_camara', label: 'Temp. Cámara (°C)', type: 'number', step: 0.5, warning: OPERATIONAL_LIMITS.TEMPERATURES.CHAMBERS },
+            { id: 'temp_antecamara', label: 'Temp. Ante-cámara (°C)', type: 'number', step: 0.5, warning: OPERATIONAL_LIMITS.TEMPERATURES.ANTE_CHAMBERS },
         ]
     },
     {
-        id: 'operativos',
-        title: 'Límites Operativos',
-        icon: '⚙️',
-        fields: [
-            { id: 'temp_extractores', label: 'Temp. Extractores (°C)', type: 'number', min: 0, max: 50 },
-            { id: 'presion_vapor', label: 'Presión Vapor (bar)', type: 'number', min: 0, max: 10 },
-            { id: 'nivel_tanques', label: 'Nivel Tanques (%)', type: 'number', min: 0, max: 100 },
-        ]
-    },
-    {
-        id: 'observaciones',
-        title: 'Observaciones',
-        icon: '📝',
-        fields: [
-            { id: 'notas', label: 'Notas Adicionales', type: 'textarea' },
+        id: 'eficiencia', // Computed fields
+        title: 'Cálculos de Eficiencia (Auto)',
+        icon: '📈',
+        fields: () => [
+            { id: 'calc_rendimiento', label: 'Rendimiento (Kg Fruta/Kg Jugo)', type: 'number', disabled: true },
+            { id: 'calc_eficiencia', label: 'Eficiencia Extracción (%)', type: 'number', disabled: true },
         ]
     }
 ];
-
-// Replicate fields to reach ~80 for the demo as requested
-// (Note: In a real app, these would be unique IDs)
-const additionalFields = [];
-for (let i = 1; i <= 60; i++) {
-    additionalFields.push({
-        id: `extra_field_${i}`,
-        label: `Campo Técnico ${i}`,
-        type: 'number',
-        sectionId: i <= 20 ? 'produccion' : (i <= 40 ? 'calidad' : 'operativos')
-    });
-}
-
-additionalFields.forEach(field => {
-    const section = formSections.find(s => s.id === field.sectionId);
-    if (section) section.fields.push(field);
-});
-
-export const plantFieldExclusions = {
-    'plant1': ['extra_field_10', 'extra_field_11'], // Specific exclusions per plant
-    'plant2': ['brix', 'acidez'],
-    // ... etc
-};

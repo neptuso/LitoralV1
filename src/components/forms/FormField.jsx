@@ -1,13 +1,26 @@
 import { useFormContext } from 'react-hook-form';
 
 export const FormField = ({ field }) => {
-    const { register, formState: { errors } } = useFormContext();
+    const { register, watch, formState: { errors } } = useFormContext();
     const error = errors[field.id];
+    const value = watch(field.id);
+
+    // Operational limits warning logic
+    let warning = null;
+    if (field.warning && value !== undefined && value !== '') {
+        const numVal = parseFloat(value);
+        if (numVal < field.warning.min || numVal > field.warning.max) {
+            warning = `Fuera de rango operativo (${field.warning.min} a ${field.warning.max})`;
+        }
+    }
+
+    const containerClass = `form-field-group ${error ? 'has-error' : warning ? 'has-warning' : ''}`;
 
     return (
-        <div className={`form-field-group ${error ? 'has-error' : ''}`}>
+        <div className={containerClass}>
             <label htmlFor={field.id}>
                 {field.label} {field.required && <span className="required">*</span>}
+                {warning && <span className="warning-icon" title={warning}>⚠️</span>}
             </label>
 
             {field.type === 'textarea' ? (
@@ -34,10 +47,12 @@ export const FormField = ({ field }) => {
                     step={field.step}
                     min={field.min}
                     max={field.max}
+                    disabled={field.disabled}
                     {...register(field.id, {
                         required: field.required,
                         min: field.min,
-                        max: field.max
+                        max: field.max,
+                        valueAsNumber: field.type === 'number'
                     })}
                     placeholder={field.label}
                 />
@@ -49,6 +64,8 @@ export const FormField = ({ field }) => {
                         error.type === 'max' ? `Valor máximo: ${field.max}` :
                             'Valor inválido'}
             </span>}
+
+            {warning && !error && <span className="field-warning">{warning}</span>}
         </div>
     );
 };
