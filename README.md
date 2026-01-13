@@ -165,9 +165,11 @@ Propietario - LitoralCitrus © 2026
 
 ## 👨‍💻 Desarrolladores
 
-Desarrollado con ❤️ por el equipo de LitoralCitrus
+Desarrollado con ❤️ por el equipo de CEIBAL SISTEMAS para  LitoralCitrus
 
 ---
 
-**Versión**: 1.0.0  
+**Versión**: 1.1.0  
 **Última actualización**: Enero 2026
+**Desarrollado por**: CEIBAL SISTEMAS
+**PROXIMOS PASOS O PENDIENTES**: Fase técnica de sincronización con documentos sheets, validacion de campos y especificación de valores operativos críticos
