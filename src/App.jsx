@@ -4,6 +4,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './pages/Dashboard';
+import UserManagement from './pages/admin/UserManagement';
+import FormsPage from './pages/forms/FormsPage';
 import { USER_ROLES } from './config';
 
 export default function App() {
@@ -18,15 +20,15 @@ export default function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
 
-        {/* Placeholder for Data Entry Forms */}
-        <Route path="/forms" element={<div>Contenido de Formularios (Próximamente)</div>} />
+        {/* Data Entry Forms */}
+        <Route path="/forms" element={<FormsPage />} />
 
         {/* Admin only routes */}
         <Route
           path="/admin"
           element={
             <ProtectedRoute requiredRoles={[USER_ROLES.ADMIN]}>
-              <div>Panel de Administración (Próximamente)</div>
+              <UserManagement />
             </ProtectedRoute>
           }
         />
