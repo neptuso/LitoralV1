@@ -48,7 +48,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-page">
       <header className="page-header">
-        <h1>Panel de Control</h1>
+        <h1>Panel de Control o DASH</h1>
         <div className="user-info-bar">
           <p>Bienvenido, <strong>{userProfile?.displayName}</strong> ({ROLE_LABELS[userProfile?.role]}) para Planta: <strong>{plantName}</strong></p>
           <div className="plant-badge">
