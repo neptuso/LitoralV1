@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { ROLE_LABELS } from '../../config';
 import './Layout.css';
+import logo from '../../assets/litoral_citrus.jpeg';
 
 export default function Navbar() {
     const { currentUser, userProfile, signOut } = useAuth();
@@ -18,8 +19,7 @@ export default function Navbar() {
         <nav className="navbar">
             <div className="navbar-container">
                 <NavLink to="/" className="navbar-logo">
-                    <span className="logo-emoji">🍊</span>
-                    <span className="logo-text">LitoralCitrus</span>
+                    <img src={logo} alt="Litoral Citrus Logo" className="navbar-logo-img" />
                 </NavLink>
 
                 <div className="navbar-menu">

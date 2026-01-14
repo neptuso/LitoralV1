@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Auth.css';
+import logo from '../../assets/litoral_citrus.jpeg';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -31,9 +32,8 @@ export default function Login() {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-header">
-                    <div className="auth-logo">🍊</div>
-                    <h1>LitoralCitrus</h1>
-                    <p>Sistema de Carga de Datos</p>
+                    <img src={logo} alt="Litoral Citrus Logo" className="auth-logo-img" />
+                    <p>Sistema de Gestión de Carga</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="auth-form">
